@@ -10,11 +10,14 @@
 	"runArgs": [
 		"--gpus",
 		"all"
-	]
+	],
 	
-
 	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
+	"features": {
+		"ghcr.io/balazs23/devcontainers-features/bazel:1": {
+			"version": "latest"
+		}
+	}
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
