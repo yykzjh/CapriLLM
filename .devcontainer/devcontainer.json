@@ -5,19 +5,39 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"build": {
 		"dockerfile": "Dockerfile",
-		"context": "."
+		"context": ".",
+		"args": {
+            "USER_NAME": "${localEnv:USER}",
+            "USER_UID": "1000",
+            "USER_GID": "1000"
+        }
 	},
-	"runArgs": [
-		"--gpus",
-		"all"
-	],
-	
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/balazs23/devcontainers-features/bazel:1": {
 			"version": "latest"
 		}
-	}
+	},
+	"mounts": [
+        "source=${localEnv:HOME}/.ssh,target=${localEnv:HOME}/.ssh,type=bind",
+        "source=${localEnv:HOME}/.gitconfig,target=${localEnv:HOME}/.gitconfig,type=bind"
+    ],
+	"remoteUser": "${localEnv:USER}",
+    "containerUser": "${localEnv:USER}",
+	"runArgs": [
+		"--gpus=all",
+		"--ipc=host",
+        "--runtime=nvidia"
+	],
+	"settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "containerEnv": {
+        "NVIDIA_DRIVER_CAPABILITIES": "compute,utility"
+    },
+    "forwardPorts": [
+        8880
+    ]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
