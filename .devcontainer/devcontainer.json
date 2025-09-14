@@ -18,9 +18,8 @@
 	"mounts": [
 		"source=${localEnv:HOME},target=${localEnv:HOME},type=bind"
     ],
-	"remoteUser": "${localEnv:USER}",
-    "containerUser": "${localEnv:USER}",
 	"runArgs": [
+		"--privileged",
 		"--gpus=all",
 		"--ipc=host",
         "--runtime=nvidia"
