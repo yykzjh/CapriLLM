@@ -1,0 +1,37 @@
+{
+	"name": "CapriLLM",
+	"settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+            "bash": {
+                "path": "/bin/bash",
+                "icon": "terminal-bash"
+            }
+        }
+    },
+	"remoteUser": "${localEnv:USER}",
+	"containerUser": "${localEnv:USER}",
+	"updateRemoteUserUID": true,
+	"workspaceFolder": "/home/${localEnv:USER}/CapriLLM",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/${localEnv:USER}/CapriLLM,type=bind",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".",
+		"args": {
+            "USER_NAME": "${localEnv:USER}",
+            "USER_UID": "${localEnv:USER_UID}",
+            "USER_GID": "${localEnv:USER_GID}"
+        }
+	},
+	"mounts": [
+		"source=/home/${localEnv:USER}/.ssh,target=/home/${localEnv:USER}/.ssh,type=bind",
+		"source=/home/${localEnv:USER}/.gitconfig,target=/home/${localEnv:USER}/.gitconfig,type=bind",
+		"source=/home/${localEnv:USER}/.bashrc,target=/home/${localEnv:USER}/.bashrc,type=bind",
+		"source=/home/${localEnv:USER}/.bash_aliases,target=/home/${localEnv:USER}/.bash_aliases,type=bind"
+    ],
+	"runArgs": [
+		"--privileged",
+		"--gpus=all",
+		"--ipc=host"
+	]
+}
