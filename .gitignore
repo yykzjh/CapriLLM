@@ -1,6 +1,7 @@
 # ide
 .idea/
 .vscode/
+__pycache__/
 
 # Prerequisites
 *.d
