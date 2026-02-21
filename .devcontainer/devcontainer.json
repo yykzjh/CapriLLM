@@ -1,23 +1,9 @@
 {
 	"name": "CapriLLM",
-	"image": "crpi-804r84bj9yi5lcew.cn-hangzhou.personal.cr.aliyuncs.com/yykzjh/caprillm_dev:zjh-1005-1005",
-	"settings": {
-        "terminal.integrated.defaultProfile.linux": "bash",
-        "terminal.integrated.profiles.linux": {
-            "bash": {
-                "path": "/bin/bash",
-                "icon": "terminal-bash"
-            }
-        }
-    },
-	"remoteUser": "${localEnv:USER}",
-	"containerUser": "${localEnv:USER}",
-	"updateRemoteUserUID": true,
-	"workspaceFolder": "/home/${localEnv:USER}/CapriLLM",
-	"workspaceMount": "source=${localWorkspaceFolder},target=/home/${localEnv:USER}/CapriLLM,type=bind",
+	"image": "crpi-67joflzv7vnbp9lw.cn-hangzhou.personal.cr.aliyuncs.com/yykzjh1/caprillm_dev:latest",
 	"mounts": [
-		"source=/home/${localEnv:USER}/.ssh,target=/home/${localEnv:USER}/.ssh,type=bind",
-		"source=/home/${localEnv:USER}/.gitconfig,target=/home/${localEnv:USER}/.gitconfig,type=bind"
+		"source=/home/${localEnv:USER}/.ssh,target=/root/.ssh,type=bind",
+		"source=/home/${localEnv:USER}/.gitconfig,target=/root/.gitconfig,type=bind"
     ],
 	"runArgs": [
 		"--privileged",
