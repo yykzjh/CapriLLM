@@ -1,6 +1,5 @@
 {
 	"name": "CapriLLM",
-	"image": "crpi-804r84bj9yi5lcew.cn-hangzhou.personal.cr.aliyuncs.com/yykzjh/caprillm_dev:zjh-1005-1005",
 	"settings": {
         "terminal.integrated.defaultProfile.linux": "bash",
         "terminal.integrated.profiles.linux": {
@@ -15,6 +14,15 @@
 	"updateRemoteUserUID": true,
 	"workspaceFolder": "/home/${localEnv:USER}/CapriLLM",
 	"workspaceMount": "source=${localWorkspaceFolder},target=/home/${localEnv:USER}/CapriLLM,type=bind",
+	"build": {
+		"dockerfile": "Dockerfile_base",
+		"context": ".",
+		"args": {
+            "USER_NAME": "${localEnv:USER}",
+            "USER_UID": "${localEnv:USER_UID}",
+            "USER_GID": "${localEnv:USER_GID}"
+        }
+	},
 	"mounts": [
 		"source=/home/${localEnv:USER}/.ssh,target=/home/${localEnv:USER}/.ssh,type=bind",
 		"source=/home/${localEnv:USER}/.gitconfig,target=/home/${localEnv:USER}/.gitconfig,type=bind"
