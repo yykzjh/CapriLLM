@@ -35,5 +35,5 @@ USER $USER_NAME
 RUN mkdir -p $USER_HOME/CapriLLM
 
 # install uv
-RUN curl -LsSf https://gitee.com/wangnov/uv-custom/releases/download/0.9.3/uv-installer-custom.sh | sh \
+RUN curl -LsSf https://gitee.com/wangnov/uv-custom/releases/download/0.10.4/uv-installer-custom.sh | sh \
     && source $USER_HOME/.local/bin/env
