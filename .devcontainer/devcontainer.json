@@ -1,13 +1,10 @@
 {
-	"name": "CapriLLM",
-	"image": "crpi-67joflzv7vnbp9lw.cn-hangzhou.personal.cr.aliyuncs.com/yykzjh1/caprillm_dev:latest",
-	"mounts": [
-		"source=/home/${localEnv:USER}/.ssh,target=/root/.ssh,type=bind",
-		"source=/home/${localEnv:USER}/.gitconfig,target=/root/.gitconfig,type=bind"
-    ],
-	"runArgs": [
-		"--privileged",
-		"--gpus=all",
-		"--ipc=host"
-	]
+  "name": "CapriLLM",
+  "image": "crpi-67joflzv7vnbp9lw.cn-hangzhou.personal.cr.aliyuncs.com/yykzjh1/caprillm_dev:latest",
+  "runArgs": ["--privileged", "--gpus=all", "--ipc=host"],
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/workspaces/.ssh,type=bind",
+    "source=${localEnv:HOME}/.gitconfig,target=/workspaces/.gitconfig,type=bind"
+  ],
+  "postStartCommand": "/tmp/post_start_command.sh"
 }

@@ -25,12 +25,21 @@ if ! grep -q "$REGISTRY" ~/.docker/config.json 2>/dev/null; then
     docker login -u "$username" -p "$password" "$REGISTRY"
 fi
 
-# 2. 构建镜像
+# 2. 构建镜像（使用 .devcontainer 为上下文，以便 COPY scripts/）
 echo "正在构建镜像: $IMAGE"
-docker build -f "$DOCKERFILE" -t "$IMAGE" "$DOCKER_DIR"
+docker build -f "$DOCKERFILE" -t "$IMAGE" "$SCRIPT_DIR/.."
 
 # 3. 推送镜像
 echo "正在推送镜像: $IMAGE"
 docker push "$IMAGE"
 
-echo "完成: $IMAGE"
+# 4. 同时更新 latest 标签并推送（若指定 tag 非 latest）
+if [ "$TAG" != "latest" ]; then
+    IMAGE_LATEST="${REGISTRY}/${REPO}:latest"
+    echo "正在更新并推送 latest 标签: $IMAGE_LATEST"
+    docker tag "$IMAGE" "$IMAGE_LATEST"
+    docker push "$IMAGE_LATEST"
+    echo "完成: $IMAGE, $IMAGE_LATEST"
+else
+    echo "完成: $IMAGE"
+fi

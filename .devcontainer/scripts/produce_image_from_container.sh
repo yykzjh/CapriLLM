@@ -28,4 +28,13 @@ docker commit "$CONTAINER_ID" "$IMAGE"
 echo "正在推送镜像: $IMAGE"
 docker push "$IMAGE"
 
-echo "完成: $IMAGE"
+# 4. 同时更新 latest 标签并推送（若指定 tag 非 latest）
+if [ "$TAG" != "latest" ]; then
+    IMAGE_LATEST="${REGISTRY}/${REPO}:latest"
+    echo "正在更新并推送 latest 标签: $IMAGE_LATEST"
+    docker tag "$IMAGE" "$IMAGE_LATEST"
+    docker push "$IMAGE_LATEST"
+    echo "完成: $IMAGE, $IMAGE_LATEST"
+else
+    echo "完成: $IMAGE"
+fi

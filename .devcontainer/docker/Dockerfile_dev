@@ -1,1 +1,5 @@
-FROM nvcr.io/nvidia/pytorch:25.03-py3
+FROM crpi-67joflzv7vnbp9lw.cn-hangzhou.personal.cr.aliyuncs.com/yykzjh1/caprillm_dev:v0.0.2-uv
+
+# Copy post_start_command.sh to container (build context: .devcontainer)
+COPY scripts/post_start_command.sh /tmp/post_start_command.sh
+RUN chmod +x /tmp/post_start_command.sh
